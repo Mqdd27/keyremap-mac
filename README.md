@@ -57,3 +57,7 @@ Then click the ⌨️ menu bar icon → **Edit Remap…**, add your mappings, an
 - `main.swift`: the whole app (SwiftUI menu bar + editor window).
 - `icon.swift`: draws the app icon at build time.
 - `build.sh`: compiles with `swiftc`, builds the `.app` bundle and icon, ad-hoc signs it.
+
+## License
+
+Public domain ([Unlicense](LICENSE)), same as Karabiner-Elements.
