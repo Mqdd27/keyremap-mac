@@ -24,7 +24,18 @@ Inspired by [Karabiner-Elements](https://github.com/pqrs-org/Karabiner-Elements)
 - Applies to all keyboards.
 - Not active on the login / FileVault screen, only after you log in.
 
-## Build & install
+## Install
+
+1. Download `KeyRemap-Lite.zip` from the [latest release](https://github.com/Mqdd27/keyremap-mac/releases/latest) and unzip it.
+2. Move `KeyRemap Lite.app` to `/Applications`.
+3. The app is not notarized by Apple, so macOS blocks it on first launch. Either:
+   - open it once, then go to System Settings → Privacy & Security → **Open Anyway**, or
+   - run `xattr -dr com.apple.quarantine "/Applications/KeyRemap Lite.app"`.
+4. Click the ⌨️ menu bar icon → **Edit Remap…**, add your mappings, and click **Apply**.
+
+Works on Apple Silicon and Intel, macOS 15+.
+
+## Build from source
 
 Requires macOS 15+ and the Xcode Command Line Tools (`xcode-select --install`). Xcode itself is not needed.
 

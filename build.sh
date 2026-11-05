@@ -4,7 +4,12 @@ set -e
 cd "$(dirname "$0")"
 APP="KeyRemap Lite.app"
 rm -rf "$APP" && mkdir -p "$APP/Contents/MacOS"
-swiftc -O -parse-as-library main.swift -o "$APP/Contents/MacOS/KeyRemapLite"
+# Universal binary: Apple Silicon + Intel.
+for a in arm64 x86_64; do
+  swiftc -O -parse-as-library -target $a-apple-macos15 main.swift -o "KeyRemapLite-$a"
+done
+lipo -create KeyRemapLite-arm64 KeyRemapLite-x86_64 -output "$APP/Contents/MacOS/KeyRemapLite"
+rm KeyRemapLite-arm64 KeyRemapLite-x86_64
 mkdir -p "$APP/Contents/Resources" icon.iconset
 swift icon.swift icon.png
 for n in 16 32 128 256 512; do
@@ -20,6 +25,7 @@ cat > "$APP/Contents/Info.plist" <<EOF
 <key>CFBundleExecutable</key><string>KeyRemapLite</string>
 <key>CFBundleIdentifier</key><string>local.keyremap-lite</string>
 <key>CFBundleName</key><string>KeyRemap Lite</string>
+<key>CFBundleShortVersionString</key><string>${VERSION:-1.0.0}</string>
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>LSUIElement</key><true/>
