@@ -41,14 +41,14 @@ func apply(_ maps: [Mapping]) -> String? {
     p.executableURL = URL(fileURLWithPath: "/usr/bin/hidutil")
     p.arguments = args
     p.standardOutput = FileHandle.nullDevice
-    do { try p.run(); p.waitUntilExit() } catch { return "hidutil gagal: \(error.localizedDescription)" }
+    do { try p.run(); p.waitUntilExit() } catch { return "hidutil failed: \(error.localizedDescription)" }
     if p.terminationStatus != 0 { return "hidutil exit \(p.terminationStatus)" }
 
     UserDefaults.standard.set(maps.map { [$0.from, $0.to] }, forKey: "maps")
     if maps.isEmpty { try? FileManager.default.removeItem(at: agentURL); return nil }
     try? FileManager.default.createDirectory(at: agentURL.deletingLastPathComponent(), withIntermediateDirectories: true)
     let plist: NSDictionary = ["Label": label, "ProgramArguments": ["/usr/bin/hidutil"] + args, "RunAtLoad": true]
-    return plist.write(to: agentURL, atomically: true) ? nil : "Gagal menulis \(agentURL.path)"
+    return plist.write(to: agentURL, atomically: true) ? nil : "Failed to Write \(agentURL.path)"
 }
 
 func loadSaved() -> [Mapping] {
@@ -82,10 +82,10 @@ struct ContentView: View {
                 }
             }
             HStack {
-                Button("+ Tambah") { model.maps.append(Mapping(from: keys[1].code, to: keys[0].code)) }
+                Button("+ Add") { model.maps.append(Mapping(from: keys[1].code, to: keys[0].code)) }
                 Spacer()
-                Button("Reset") { model.save([], ok: "Semua remap dihapus") }
-                Button("Apply") { model.save(model.maps, ok: "Aktif (juga setelah restart)") }
+                Button("Reset") { model.save([], ok: "All remap deleted") }
+                Button("Apply") { model.save(model.maps, ok: "Active") }
                     .keyboardShortcut(.defaultAction)
             }
             Text(model.status).font(.caption).foregroundStyle(.secondary)
@@ -104,7 +104,7 @@ struct MenuContent: View {
     @Environment(\.openWindow) var openWindow
 
     var body: some View {
-        Text(model.applied.isEmpty ? "Remap: nonaktif" : "Remap: aktif (\(model.applied.count))")
+        Text(model.applied.isEmpty ? "Remap: Nonactive" : "Remap: Active (\(model.applied.count))")
         ForEach(model.applied) { Text("\(keyName($0.from)) → \(keyName($0.to))") }
         Divider()
         Button("Edit Remap…") { NSApp.activate(); openWindow(id: "main") }
