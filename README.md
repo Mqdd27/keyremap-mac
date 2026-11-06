@@ -2,7 +2,7 @@
 
 A tiny macOS app for 1-to-1 key remapping (e.g. swap Esc ⇄ Caps Lock), with a menu bar status icon.
 
-Inspired by [Karabiner-Elements](https://github.com/pqrs-org/Karabiner-Elements). This project started as a fork of it, then was rewritten from scratch for one job: simple key remaps, as light as possible.
+Inspired by [Karabiner-Elements](https://github.com/pqrs-org/Karabiner-Elements). This project started as a fork of it, then was rewritten from scratch for one job: simple key remaps.
 
 | | Karabiner-Elements | KeyRemap Lite |
 |---|---|---|
@@ -22,7 +22,7 @@ Inspired by [Karabiner-Elements](https://github.com/pqrs-org/Karabiner-Elements)
 
 - Only 1 key → 1 key. No tap/hold, combos, or per-app rules (use Karabiner-Elements for those).
 - Applies to all keyboards.
-- Not active on the login / FileVault screen, only after you log in.
+- Not active on the login / FileVault screen, only after log in.
 
 ## Install
 
@@ -60,4 +60,4 @@ Then click the ⌨️ menu bar icon → **Edit Remap…**, add your mappings, an
 
 ## License
 
-Public domain ([Unlicense](LICENSE)), same as Karabiner-Elements.
+Public domain ([Unlicense](LICENSE)).
