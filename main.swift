@@ -112,6 +112,7 @@ struct MenuContent: View {
     }
 }
 
+#if !TEST  // tests.swift provides @main instead
 @main struct KeyRemapLite: App {
     @StateObject var model = Model()
 
@@ -132,3 +133,4 @@ struct MenuContent: View {
             .defaultLaunchBehavior(.suppressed)
     }
 }
+#endif

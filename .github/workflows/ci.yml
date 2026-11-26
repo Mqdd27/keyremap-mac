@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        run: swiftc -D TEST -parse-as-library main.swift tests.swift -o tests && ./tests
+      - name: Build
+        run: sh build.sh
